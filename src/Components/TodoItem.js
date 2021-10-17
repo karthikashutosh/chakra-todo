@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { FcCheckmark } from "react-icons/fc";
 
 export default function TodoItem({
   item,
@@ -29,9 +30,13 @@ export default function TodoItem({
         maxW={{ base: "90vw", sm: "80vw", lg: "50vw", xl: "40vw" }}
       >
         <HStack spacing="12px" w="auto">
-          <Checkbox mt="8" onClick={() => completeTodoItem(index)} />
+          <IconButton
+            icon={<FcCheckmark />}
+            mt="8"
+            onClick={() => completeTodoItem(index)}
+          />
           <Flex p={6} w="300px" h="50px" justifyContent="space-between">
-            <Text as={item.complete ? "mark" : ""} fontSize="xl">
+            <Text as={item.complete ? "s" : ""} fontSize="xl">
               {item.todo}
             </Text>
             <Spacer p={3} />
