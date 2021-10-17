@@ -11,7 +11,13 @@ import {
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
-export default function TodoItem({ item, index, deleteTodoItem }) {
+export default function TodoItem({
+  item,
+  index,
+  deleteTodoItem,
+  completeTodoItem,
+  updateTodoItem,
+}) {
   return (
     <div>
       <VStack
@@ -23,18 +29,22 @@ export default function TodoItem({ item, index, deleteTodoItem }) {
         maxW={{ base: "90vw", sm: "80vw", lg: "50vw", xl: "40vw" }}
       >
         <HStack spacing="12px" w="auto">
-          <Checkbox mt="8" />
+          <Checkbox mt="8" onClick={() => completeTodoItem(index)} />
           <Flex p={6} w="300px" h="50px" justifyContent="space-between">
-            <Text fontSize="xl">{item.todo}</Text>
+            <Text as={item.complete ? "mark" : ""} fontSize="xl">
+              {item.todo}
+            </Text>
             <Spacer p={3} />
-            <Flex w="10px" />
-
-            <IconButton icon={<FaEdit />} isRound="true" />
-            <Spacer p={2} />
+            <IconButton
+              onClick={() => updateTodoItem(index)}
+              icon={<FaEdit />}
+              isRound="true"
+            />
+            <Spacer p={3} />
             <IconButton
               icon={<FaTrash />}
-              onClick={() => deleteTodoItem(index)}
               isRound="true"
+              onClick={() => deleteTodoItem(index)}
             />
           </Flex>
         </HStack>
