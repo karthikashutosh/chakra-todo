@@ -4,6 +4,9 @@ import TodoItem from "./Components/TodoItem";
 import { VStack, Heading } from "@chakra-ui/react";
 
 function App() {
+  const createTodo = (todo) => {
+    const newTodos = [];
+  };
   const [todoItems, setTodoItems] = React.useState([
     {
       todo: "wallking on the beach",
@@ -18,6 +21,17 @@ function App() {
       complete: false,
     },
   ]);
+  const deleteTodoItem = (index) => {
+    const newTodoItems = [...todoItems];
+    newTodoItems.splice(index, 1);
+    setTodoItems(newTodoItems);
+  };
+  const createTodoItem = (todo) => {
+    const newTodo = [...todoItems, { todo, complete: false }];
+
+    setTodoItems(newTodo);
+  };
+
   return (
     <div className="App">
       <VStack p={8}>
@@ -30,9 +44,14 @@ function App() {
           Chakra-Todo
         </Heading>
 
-        <TodoInput />
+        <TodoInput createTodoItem={createTodoItem} />
         {todoItems.map((item, index) => (
-          <TodoItem key={index} index={index} item={item} />
+          <TodoItem
+            key={index}
+            index={index}
+            item={item}
+            deleteTodoItem={deleteTodoItem}
+          />
         ))}
       </VStack>
     </div>
