@@ -1,12 +1,15 @@
 import React from "react";
 import TodoInput from "./Components/TodoInput";
 import TodoItem from "./Components/TodoItem";
-import { VStack, Heading, Badge } from "@chakra-ui/react";
+import { VStack, Heading } from "@chakra-ui/react";
+import Completed from "./Components/Completed";
 
 function App() {
   const [todoItems, setTodoItems] = React.useState(
     () => JSON.parse(localStorage.getItem("todoItems")) || []
   );
+
+  const [complete, setComplete] = React.useState([]);
 
   React.useEffect(() => {
     localStorage.setItem("todoItems", JSON.stringify(todoItems));
@@ -53,7 +56,11 @@ function App() {
     setTodoItems(newTodo);
   };
 
-  
+  const completed = (index) => {
+    const newComplete = todoItems.filter((todo) => todo.complete === true);
+
+    setComplete(newComplete);
+  };
 
   return (
     <div className="App">
@@ -79,6 +86,7 @@ function App() {
           />
         ))}
       </VStack>
+      <Completed complete={complete} />
     </div>
   );
 }

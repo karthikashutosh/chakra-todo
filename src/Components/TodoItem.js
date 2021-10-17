@@ -5,7 +5,6 @@ import {
   HStack,
   Spacer,
   IconButton,
-  Checkbox,
   Flex,
 } from "@chakra-ui/react";
 import React from "react";
