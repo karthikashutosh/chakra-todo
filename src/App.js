@@ -1,26 +1,18 @@
 import React from "react";
 import TodoInput from "./Components/TodoInput";
 import TodoItem from "./Components/TodoItem";
-import { VStack, Heading } from "@chakra-ui/react";
+import { VStack, Heading, Badge } from "@chakra-ui/react";
 
 function App() {
-  const createTodo = (todo) => {
-    const newTodos = [];
-  };
-  const [todoItems, setTodoItems] = React.useState([
-    {
-      todo: "wallking on the beach",
-      complete: false,
-    },
-    {
-      todo: "Do noting",
-      complete: false,
-    },
-    {
-      todo: "Make lassi",
-      complete: false,
-    },
-  ]);
+  const [todoItems, setTodoItems] = React.useState(
+    () => JSON.parse(localStorage.getItem("todoItems")) || []
+  );
+
+  React.useEffect(() => {
+    localStorage.setItem("todoItems", JSON.stringify(todoItems));
+  }, [todoItems]);
+
+  // completed item
   const completeTodoItem = (index) => {
     const newTodoItems = [...todoItems];
 
@@ -30,6 +22,7 @@ function App() {
     setTodoItems(newTodoItems);
   };
 
+  //update item
   const updateTodoItem = (index) => {
     const newTodoItems = [...todoItems];
     const item = newTodoItems[index];
@@ -46,16 +39,21 @@ function App() {
     setTodoItems(newTodoItems);
   };
 
+  //delete item
   const deleteTodoItem = (index) => {
     const newTodoItems = [...todoItems];
     newTodoItems.splice(index, 1);
     setTodoItems(newTodoItems);
   };
+
+  //create todo item
   const createTodoItem = (todo) => {
     const newTodo = [...todoItems, { todo, complete: false }];
 
     setTodoItems(newTodo);
   };
+
+  
 
   return (
     <div className="App">
